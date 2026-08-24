@@ -1,0 +1,8 @@
+node_modules/
+dist/
+build/
+frontend/.vite/
+/src/
+.env
+.env.*
+*.log
