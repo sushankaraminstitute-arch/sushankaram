@@ -97,7 +97,7 @@ const postRoutes = {
   }
 };
 
-const server = http.createServer(async (req, res) => {
+export const requestHandler = async (req, res) => {
   if (req.method === "OPTIONS") {
     sendJson(res, 204, {});
     return;
@@ -124,8 +124,12 @@ const server = http.createServer(async (req, res) => {
   } catch (error) {
     sendJson(res, 400, { error: error.message || "Unable to process request" });
   }
-});
+};
 
-server.listen(PORT, () => {
-  console.log(`Backend API running at http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  const server = http.createServer(requestHandler);
+
+  server.listen(PORT, () => {
+    console.log(`Backend API running at http://localhost:${PORT}`);
+  });
+}
