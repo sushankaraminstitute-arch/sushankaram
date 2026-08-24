@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router";
 import { Button } from "./ui/button";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { useState } from "react";
+import sushankaramLogo from "../../assets/sushankaram-logo.png";
 
 export function Header() {
   const location = useLocation();
@@ -48,10 +49,12 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 transition-transform hover:-translate-y-0.5">
-            <div className="animate-float w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">S</span>
-            </div>
+          <Link to="/" className="flex items-center space-x-3 transition-transform hover:-translate-y-0.5">
+            <img
+              src={sushankaramLogo}
+              alt="Sushankaram Institute logo"
+              className="h-12 w-16 rounded-md object-cover shadow-sm sm:w-20"
+            />
             <div>
               <div className="font-bold text-lg leading-tight text-gray-900">Sushankaram Institute</div>
               <div className="text-xs text-gray-600">Of Competitive Exams</div>

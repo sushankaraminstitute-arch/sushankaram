@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import sushankaramLogo from "../../assets/sushankaram-logo.png";
 
 export function Footer() {
   return (
@@ -9,9 +10,11 @@ export function Footer() {
           {/* About Section */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">S</span>
-              </div>
+              <img
+                src={sushankaramLogo}
+                alt="Sushankaram Institute logo"
+                className="h-11 w-16 rounded-md object-cover shadow-sm"
+              />
               <div>
                 <div className="font-bold text-white leading-tight">Sushankaram Institute</div>
                 <div className="text-xs text-gray-400">Of Competitive Exams</div>
