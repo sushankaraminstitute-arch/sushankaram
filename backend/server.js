@@ -59,7 +59,24 @@ const buildInquiryRedirect = (payload) => {
   return `https://wa.me/${siteData.contact.whatsappNumber}?text=${encodeURIComponent(message)}`;
 };
 
+const normalizePath = (pathname) => {
+  if (!process.env.VERCEL) {
+    return pathname;
+  }
+
+  return pathname.startsWith("/api/") ? pathname.slice(4) : pathname;
+};
+
 const getRoutes = {
+  "/health": () => ({ status: "ok" }),
+  "/ui": () => siteData.ui,
+  "/navigation": () => siteData.ui.navigation,
+  "/redirects": () => siteData.ui.actions,
+  "/home": () => siteData.home,
+  "/courses": () => siteData.courses,
+  "/about": () => siteData.about,
+  "/contact": () => siteData.contact,
+  "/site": () => siteData,
   "/api/health": () => ({ status: "ok" }),
   "/api/ui": () => siteData.ui,
   "/api/navigation": () => siteData.ui.navigation,
@@ -72,6 +89,29 @@ const getRoutes = {
 };
 
 const postRoutes = {
+  "/contact/inquiry": async (req) => {
+    const payload = await readJsonBody(req);
+    const requiredFields = ["name", "email", "phone", "message"];
+    const missingFields = requiredFields.filter((field) => !String(payload[field] || "").trim());
+
+    if (missingFields.length > 0) {
+      return {
+        statusCode: 400,
+        body: {
+          error: "Missing required fields",
+          missingFields
+        }
+      };
+    }
+
+    return {
+      statusCode: 200,
+      body: {
+        redirectUrl: buildInquiryRedirect(payload),
+        target: "whatsapp"
+      }
+    };
+  },
   "/api/contact/inquiry": async (req) => {
     const payload = await readJsonBody(req);
     const requiredFields = ["name", "email", "phone", "message"];
@@ -104,10 +144,11 @@ export const requestHandler = async (req, res) => {
   }
 
   const url = new URL(req.url || "/", `http://${req.headers.host}`);
-  const handler = req.method === "GET" ? getRoutes[url.pathname] : postRoutes[url.pathname];
+  const pathname = normalizePath(url.pathname);
+  const handler = req.method === "GET" ? getRoutes[pathname] : postRoutes[pathname];
 
   if (!handler) {
-    const knownPath = getRoutes[url.pathname] || postRoutes[url.pathname];
+    const knownPath = getRoutes[pathname] || postRoutes[pathname];
     sendJson(res, knownPath ? 405 : 404, { error: knownPath ? "Method not allowed" : "Route not found" });
     return;
   }
