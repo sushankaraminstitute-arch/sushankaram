@@ -101,7 +101,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Sushankaram Institute of Competitive Exams. All rights reserved. Managed By RAPITA Digital Productions</p>
+          <p>&copy; {new Date().getFullYear()} Sushankaram Institute of Competitive Exams. Desined By RAPITA Digital Productions. All Rights Reserved. </p>
         </div>
       </div>
     </footer>
