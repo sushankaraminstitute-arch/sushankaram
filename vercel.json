@@ -1,32 +1,14 @@
 {
-  "services": {
-    "web": {
-      "root": "frontend",
-      "framework": "vite"
-    },
-    "api": {
-      "root": ".",
-      "entrypoint": "api/[...path].js"
-    }
-  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "frontend/dist",
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": {
-        "service": "api"
-      }
-    },
-    {
-      "source": "/",
-      "destination": {
-        "service": "web"
-      }
+      "destination": "/api/[...path].js"
     },
     {
       "source": "/(.*)",
-      "destination": {
-        "service": "web"
-      }
+      "destination": "/index.html"
     }
   ]
 }
