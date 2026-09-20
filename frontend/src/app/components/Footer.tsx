@@ -82,7 +82,7 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 flex-shrink-0 text-blue-400" />
                 <a href="mailto:info@sushankaram.com" className="hover:text-blue-400 transition-colors">
-                  sushankaraminstitute@gmail.com
+                  support@sushankaram.com
                 </a>
               </li>
             </ul>
